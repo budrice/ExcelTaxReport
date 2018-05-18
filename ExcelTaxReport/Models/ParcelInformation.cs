@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ReportBuilder.Models
+namespace ExcelTaxReport.Models
 {
     public class ParcelInformation
     {
@@ -80,7 +80,9 @@ namespace ReportBuilder.Models
             }
         }
         public decimal assessed_valuation { get; set; }
-        
+
+        public TaxAuthorityPaymentRecord
+
     }
 
 }

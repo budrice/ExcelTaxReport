@@ -1,4 +1,4 @@
-﻿namespace ReportBuilder.Models
+﻿namespace ExcelTaxReport.Models
 {
     public class ReportConfig
     {

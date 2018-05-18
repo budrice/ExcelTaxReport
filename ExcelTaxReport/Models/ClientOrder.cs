@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ReportBuilder.Models
+namespace ExcelTaxReport.Models
 {
     public class ClientOrder
     {
