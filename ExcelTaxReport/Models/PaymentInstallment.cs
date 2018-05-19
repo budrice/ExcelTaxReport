@@ -14,9 +14,9 @@ namespace ExcelTaxReport.Models
         public decimal delinquent_amount { get; set; }
         public DateTime date_paid { get; set; }
         public decimal amount_due { get; set; }
-        public DateTime date_first_due { get; set; }
-        public DateTime date_last_due { get; set; }
-        public DateTime date_final_due { get; set; }
+        //public DateTime date_first_due { get; set; }
+        //public DateTime date_last_due { get; set; }
+        public DateTime date_due { get; set; }
         public int install { get; set; }
         public decimal paid { get; set; }
         public byte is_partial { get; set; }
