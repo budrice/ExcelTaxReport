@@ -80,8 +80,12 @@ namespace ExcelTaxReport.Models
             }
         }
         public decimal assessed_valuation { get; set; }
+        public List<TaxAuthorityPaymentRecord> payment_records { get; set; }
 
-        public TaxAuthorityPaymentRecord
+        public ParcelInformation()
+        {
+            this.payment_records = new List<TaxAuthorityPaymentRecord>();
+        }
 
     }
 

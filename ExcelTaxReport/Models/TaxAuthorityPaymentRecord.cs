@@ -29,6 +29,7 @@ namespace ExcelTaxReport.Models
         public string lawsuit { get; set; }
         public string lawsuit_case { get; set; }
         public TaxAuthority tax_authority { get; set; }
+
         public List<PaymentInstallment> installments { get; set; }
 
         public TaxAuthorityPaymentRecord()
