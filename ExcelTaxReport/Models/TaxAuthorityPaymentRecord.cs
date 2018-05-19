@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ReportBuilder.Models
+namespace ExcelTaxReport.Models
 {
     public class TaxAuthorityPaymentRecord
     {
@@ -28,5 +28,11 @@ namespace ReportBuilder.Models
         public byte unincorporated { get; set; }
         public string lawsuit { get; set; }
         public string lawsuit_case { get; set; }
+        public TaxAuthority tax_authority { get; set; }
+
+        public TaxAuthorityPaymentRecord()
+        {
+            List<TaxAuthority> tax_authorities = new List<TaxAuthority>();
+        }
     }
 }
