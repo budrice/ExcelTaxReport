@@ -67,6 +67,21 @@ namespace ExcelTaxReport.Reports
             sheet1.PageSetup.FitToPagesTall = 1;
         }
 
+        private void ColumnWidths()
+        {
+            sheet1.Columns["A:A"].ColumnWidth = 11.57;
+            sheet1.Columns["B:B"].ColumnWidth = 8.43;
+            sheet1.Columns["C:C"].ColumnWidth = 9.57;
+            sheet1.Columns["D:D"].ColumnWidth = 10.14;
+            sheet1.Columns["E:E"].ColumnWidth = 8.14;
+            sheet1.Columns["F:F"].ColumnWidth = 7.86;
+            sheet1.Columns["G:G"].ColumnWidth = 8.43;
+            sheet1.Columns["H:H"].ColumnWidth = 9.57;
+            sheet1.Columns["I:I"].ColumnWidth = 8.86;
+            sheet1.Columns["J:J"].ColumnWidth = 6;
+            sheet1.Columns["K:K"].ColumnWidth = 8.43;
+        }
+        
         private void Header(ParcelInformation parcel)
         {
             currentrow++;
@@ -83,6 +98,12 @@ namespace ExcelTaxReport.Reports
             sheet1.Range["G" + currentrow, "H" + currentrow].Merge();
             this.CellValue("E" + currentrow, "Verified as of:", 10, Excel.XlHAlign.xlHAlignRight, font: "Calibri");
             this.CellValue("E" + currentrow, DataFunctions.DateToString(parcel.effective_date));
+
+            currentrow++;
+            sheet1.Cells[currentrow, "A"].RowHeight = 6.75;
+
+            currentrow++;
+
         }
 
         private void SaveExcel()
