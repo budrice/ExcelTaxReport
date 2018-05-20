@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ExcelTaxReport.Reports;
 
 namespace ExcelTaxReport
 {
@@ -10,8 +6,8 @@ namespace ExcelTaxReport
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            Console.ReadKey();
+            Report1 report = new Report1(TestData.GetSampleOrder());
+            report.CreateReport();
         }
     }
 }

@@ -19,7 +19,7 @@ namespace ExcelTaxReport
             client_order.report_config = report_config;
 
             ClientConfig client_config = new ClientConfig();
-            client_config.base_path = @"D:\Programming\0_crap";
+            client_config.base_path = @"D:\Programming\0_crap\";
             client_config.report_name = "Tax_Research.xlsx";
             client_config.logo = @"D:\Programming\0_crap\logo.jpg";
             client_order.client_config = client_config;
@@ -76,8 +76,8 @@ namespace ExcelTaxReport
             install_1.amount_due = 0.00M;
             install_1.base_amount = 0.00M;
             install_1.date_due = DateTime.Parse("2017-12-31");
-            install_1.date_good_thru = DateTime.Parse("2018-02-31");
-            install_1.date_paid = DateTime.Parse("2018-02-31");
+            install_1.date_good_thru = DateTime.Parse("2018-02-28");
+            install_1.date_paid = DateTime.Parse("2018-02-01");
             install_1.delinquent_amount = 0.00M;
             install_1.install = 1;
             install_1.is_delinquent = 0;
@@ -92,8 +92,8 @@ namespace ExcelTaxReport
             install_2.amount_due = 0.00M;
             install_2.base_amount = 0.00M;
             install_2.date_due = DateTime.Parse("2017-12-31");
-            install_2.date_good_thru = DateTime.Parse("2018-02-31");
-            install_2.date_paid = DateTime.Parse("2018-02-31");
+            install_2.date_good_thru = DateTime.Parse("2018-02-01");
+            install_2.date_paid = DateTime.Parse("2018-02-01");
             install_2.delinquent_amount = 0.00M;
             install_2.install = 1;
             install_2.is_delinquent = 0;
@@ -108,8 +108,8 @@ namespace ExcelTaxReport
             install_3.amount_due = 0.00M;
             install_3.base_amount = 0.00M;
             install_3.date_due = DateTime.Parse("2017-12-31");
-            install_3.date_good_thru = DateTime.Parse("2018-02-31");
-            install_3.date_paid = DateTime.Parse("2018-02-31");
+            install_3.date_good_thru = DateTime.Parse("2018-02-01");
+            install_3.date_paid = DateTime.Parse("2018-02-01");
             install_3.delinquent_amount = 0.00M;
             install_3.install = 1;
             install_3.is_delinquent = 0;
@@ -124,8 +124,8 @@ namespace ExcelTaxReport
             install_4.amount_due = 0.00M;
             install_4.base_amount = 0.00M;
             install_4.date_due = DateTime.Parse("2017-12-31");
-            install_4.date_good_thru = DateTime.Parse("2018-02-31");
-            install_4.date_paid = DateTime.Parse("2018-02-31");
+            install_4.date_good_thru = DateTime.Parse("2018-02-01");
+            install_4.date_paid = DateTime.Parse("2018-02-01");
             install_4.delinquent_amount = 0.00M;
             install_4.install = 1;
             install_4.is_delinquent = 0;

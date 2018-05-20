@@ -55,9 +55,10 @@
     <Compile Include="Models\ReportConfig.cs" />
     <Compile Include="Models\TaxAuthority.cs" />
     <Compile Include="Models\TaxAuthorityPaymentRecord.cs" />
+    <Compile Include="Models\TaxInformation.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Complie Include="Reports\Report1.cs" />
+    <Compile Include="Reports\Report1.cs" />
     <Compile Include="TestData.cs" />
     <Compile Include="WriteExcel.cs" />
   </ItemGroup>

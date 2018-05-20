@@ -4,7 +4,7 @@ using System.Linq;
 
 using Excel = Microsoft.Office.Interop.Excel;
 using ExcelTaxReport.Models;
-
+using ExcelTaxReport.Reports;
 namespace ExcelTaxReport
 {
     public class WriteExcel

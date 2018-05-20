@@ -1,0 +1,7 @@
+D:\programming\ExcelReport\ExcelTaxReport\ExcelTaxReport\obj\Debug\ExcelTaxReport.csprojAssemblyReference.cache
+D:\programming\ExcelReport\ExcelTaxReport\ExcelTaxReport\obj\Debug\ExcelTaxReport.csproj.CoreCompileInputs.cache
+D:\programming\ExcelReport\ExcelTaxReport\ExcelTaxReport\bin\Debug\ExcelTaxReport.exe.config
+D:\programming\ExcelReport\ExcelTaxReport\ExcelTaxReport\bin\Debug\ExcelTaxReport.exe
+D:\programming\ExcelReport\ExcelTaxReport\ExcelTaxReport\bin\Debug\ExcelTaxReport.pdb
+D:\programming\ExcelReport\ExcelTaxReport\ExcelTaxReport\obj\Debug\ExcelTaxReport.exe
+D:\programming\ExcelReport\ExcelTaxReport\ExcelTaxReport\obj\Debug\ExcelTaxReport.pdb
