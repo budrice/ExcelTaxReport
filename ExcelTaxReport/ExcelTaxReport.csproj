@@ -57,7 +57,11 @@
     <Compile Include="Models\TaxAuthorityPaymentRecord.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+<<<<<<< HEAD
     <Compile Include="TestData.cs" />
+=======
+    <Compile Include="WriteExcel.cs" />
+>>>>>>> b618fcc289cbac1176c7e53adb57bcdc8a19a9f8
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
