@@ -18,7 +18,7 @@ namespace ExcelTaxReport
         public Excel.Worksheet sheet2;
         public Excel.Worksheet sheet3;
 
-        public void ColorMergedRow(int row, decimal height = 15M, string start_col = "A", string end_col = "K", Color? color = null, bool border = true)
+        public void ColorMergedRow(int row, double height = 15, string start_col = "A", string end_col = "K", Color? color = null, bool border = true)
         {
             Color rgb = color ?? Color.FromArgb(192, 192, 192);
             sheet1.Range[start_col + row, end_col + row].Merge();

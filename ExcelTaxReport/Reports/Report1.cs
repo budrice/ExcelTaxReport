@@ -9,9 +9,6 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-
-
-
 namespace ExcelTaxReport.Reports
 {
     public class Report1: WriteExcel, IReport
@@ -24,15 +21,21 @@ namespace ExcelTaxReport.Reports
         object misValue = System.Reflection.Missing.Value;
         private string filepath = string.Empty;
         private bool gridlines = true;
+        private double default_row_height = 15;
+        int currentrow = 0;
 
         public bool CreateReport()
         {
-            Filepath();
-            NewExcel();
-            SetMargins();
-
-            SaveExcel();
-            CloseExcel();
+            foreach(ParcelInformation parcel in this.client_order.Parcels)
+            {
+                Filepath();
+                NewExcel();
+                SetMargins();
+                Header(parcel);
+                SaveExcel();
+                CloseExcel();
+            }
+            
 
             return false;
         }
@@ -64,22 +67,37 @@ namespace ExcelTaxReport.Reports
             sheet1.PageSetup.FitToPagesTall = 1;
         }
 
+        private void Header(ParcelInformation parcel)
+        {
+            currentrow++;
+            sheet1.Range["A" + currentrow, "K" + currentrow].Merge();
+            sheet1.Cells[currentrow, "A"].RowHeight = default_row_height;
+            this.CellValue("A" + currentrow, "Tax Certification", 10, Excel.XlHAlign.xlHAlignCenter, font: "Calibri");
+
+            currentrow++;
+            sheet1.Cells[currentrow, "A"].RowHeight = default_row_height;
+
+            currentrow++;
+            sheet1.Cells[currentrow, "A"].RowHeight = default_row_height;
+            sheet1.Range["E" + currentrow, "F" + currentrow].Merge();
+            sheet1.Range["G" + currentrow, "H" + currentrow].Merge();
+            this.CellValue("E" + currentrow, "Verified as of:", 10, Excel.XlHAlign.xlHAlignRight, font: "Calibri");
+            this.CellValue("E" + currentrow, DataFunctions.DateToString(parcel.effective_date));
+        }
+
         private void SaveExcel()
         {
             xlApp.DisplayAlerts = false;
             xlWorkbook.SaveAs(filepath, Excel.XlFileFormat.xlOpenXMLWorkbook);
             xlApp.DisplayAlerts = true;
-
         }
 
         private void CloseExcel()
         {
             GC.Collect();
             GC.WaitForPendingFinalizers();
-
             xlWorkbook.Close(true, misValue, misValue);
             xlApp.Quit();
-
             Marshal.FinalReleaseComObject(sheet1);
             Marshal.ReleaseComObject(xlWorkbook);
             Marshal.ReleaseComObject(xlApp);
