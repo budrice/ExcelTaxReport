@@ -36,10 +36,8 @@ namespace ExcelTaxReport
                 }
             }
             return taxtype;
-
-
-
-
         }
+
+
     }
 }

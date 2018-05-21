@@ -97,7 +97,7 @@ namespace ExcelTaxReport.Reports
             sheet1.Range["E" + currentrow, "F" + currentrow].Merge();
             sheet1.Range["G" + currentrow, "H" + currentrow].Merge();
             this.CellValue("E" + currentrow, "Verified as of:", 10, Excel.XlHAlign.xlHAlignRight, font: "Calibri");
-            this.CellValue("E" + currentrow, DataFunctions.DateToString(parcel.effective_date));
+            this.CellValue("G" + currentrow, DataFunctions.DateToString(parcel.effective_date));
 
             currentrow++;
             sheet1.Cells[currentrow, "A"].RowHeight = 6.75;
@@ -121,7 +121,7 @@ namespace ExcelTaxReport.Reports
             this.CellValue("A" + currentrow, "Property Owner:", 8, font: "Calibri");
             this.CellValue("C" + currentrow, parcel.assessed_owners, 8);
             this.CellValue("H" + currentrow, "County:", 8, font: "Calibri");
-            this.CellValue("I" + currentrow, parcel.county, 8);
+            this.CellValue("I" + currentrow, parcel.county, 8, Excel.XlHAlign.xlHAlignCenter);
 
             currentrow++;
             sheet1.Cells[currentrow, "A"].RowHeight = default_row_height;
@@ -136,6 +136,9 @@ namespace ExcelTaxReport.Reports
             sheet1.Range["C" + currentrow, "F" + currentrow].Merge();
             this.CellValue("A" + currentrow, "Town/City:", 8, font: "Calibri");
             this.CellValue("C" + currentrow, DataFunctions.TownCity(parcel.payment_records), 8);
+
+
+
         }
 
         private void SaveExcel()

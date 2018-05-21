@@ -33,7 +33,7 @@ namespace ExcelTaxReport
             parcel.city = "Saint Petersburg";
             parcel.state = "FL";
             parcel.zip_code = "33701";
-            parcel.county = "Pinellas";
+            parcel.county = "PINELLAS";
             parcel.searched_address = "427 8th Ave N";
             parcel.searched_city = "Saint Petersburg";
             parcel.searched_state = "FL";
@@ -63,6 +63,22 @@ namespace ExcelTaxReport
             payment_record.unincorporated = 0;
             payment_record.lawsuit = string.Empty;
             payment_record.lawsuit_case = string.Empty;
+
+            TaxAuthority tax_authority = new TaxAuthority();
+            tax_authority.name = "Pinellas County TAx Collector";
+            tax_authority.current_tax_year = "2018";
+            tax_authority.discounts = "N/A";
+            tax_authority.duplicate_bill_fee = 5.00M;
+            tax_authority.fiscal_year = "2018";
+            tax_authority.installment_info = "installment info";
+            tax_authority.payment_address_1 = "1800 66th Street North";
+            tax_authority.payment_address_2 = "";
+            tax_authority.payment_city = "St.Petersburg";
+            tax_authority.payment_state = "FL";
+            tax_authority.payment_zip = "33710";
+            tax_authority.schedule = "Annually";
+            tax_authority.ta_other_notes = "";
+            payment_record.tax_authority = tax_authority;
 
             TaxInformation tax_info = new TaxInformation();
             tax_info.jurisdiction_name = "";
