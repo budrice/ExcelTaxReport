@@ -103,7 +103,39 @@ namespace ExcelTaxReport.Reports
             sheet1.Cells[currentrow, "A"].RowHeight = 6.75;
 
             currentrow++;
+            sheet1.Cells[currentrow, "A"].RowHeight = default_row_height;
+            sheet1.Range["A" + currentrow, "B" + currentrow].Merge();
+            sheet1.Range["C" + currentrow, "F" + currentrow].Merge();
+            sheet1.Range["H" + currentrow, "I" + currentrow].Merge();
+            sheet1.Range["J" + currentrow, "K" + currentrow].Merge();
+            this.CellValue("A" + currentrow, "PO Number:", 8, font: "Calibri");
+            this.CellValue("C" + currentrow, parcel.client_po_number, 8);
+            this.CellValue("H" + currentrow, "Assessed Valuation:", 8, font: "Calibri");
+            this.CellValue("J" + currentrow, string.Format("{0:C}", parcel.assessed_valuation), 8, Excel.XlHAlign.xlHAlignRight);
 
+            currentrow++;
+            sheet1.Cells[currentrow, "A"].RowHeight = default_row_height;
+            sheet1.Range["A" + currentrow, "B" + currentrow].Merge();
+            sheet1.Range["C" + currentrow, "F" + currentrow].Merge();
+            sheet1.Range["I" + currentrow, "K" + currentrow].Merge();
+            this.CellValue("A" + currentrow, "Property Owner:", 8, font: "Calibri");
+            this.CellValue("C" + currentrow, parcel.assessed_owners, 8);
+            this.CellValue("H" + currentrow, "County:", 8, font: "Calibri");
+            this.CellValue("I" + currentrow, parcel.county, 8);
+
+            currentrow++;
+            sheet1.Cells[currentrow, "A"].RowHeight = default_row_height;
+            sheet1.Range["A" + currentrow, "B" + currentrow].Merge();
+            sheet1.Range["C" + currentrow, "F" + currentrow].Merge();
+            this.CellValue("A" + currentrow, "Tax Address:", 8, font: "Calibri");
+            this.CellValue("C" + currentrow, parcel.assessed_address, 8);
+
+            currentrow++;
+            sheet1.Cells[currentrow, "A"].RowHeight = default_row_height;
+            sheet1.Range["A" + currentrow, "B" + currentrow].Merge();
+            sheet1.Range["C" + currentrow, "F" + currentrow].Merge();
+            this.CellValue("A" + currentrow, "Town/City:", 8, font: "Calibri");
+            this.CellValue("C" + currentrow, DataFunctions.TownCity(parcel.payment_records), 8);
         }
 
         private void SaveExcel()

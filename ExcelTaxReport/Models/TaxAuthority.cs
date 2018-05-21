@@ -5,7 +5,7 @@ namespace ExcelTaxReport.Models
 {
     public class TaxAuthority
     {
-        public string tax_authority { get; set; }
+        public string name { get; set; }
         public string payment_address_1 { get; set; }
         public string payment_address_2 { get; set; }
         public string payment_city { get; set; }

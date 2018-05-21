@@ -30,7 +30,7 @@ namespace ExcelTaxReport
             sheet1.Cells[row, start_col].RowHeight = height;
         }
 
-        public void CellValue(string cell, string value, int fontsize = 10, Excel.XlHAlign halign = Excel.XlHAlign.xlHAlignLeft, Excel.XlVAlign valign = Excel.XlVAlign.xlVAlignBottom, Color? font_color = null, string font = "Arial", bool bold = true, bool underline = false)
+        public void CellValue(string cell, string value, int fontsize = 10, Excel.XlHAlign halign = Excel.XlHAlign.xlHAlignLeft, Excel.XlVAlign valign = Excel.XlVAlign.xlVAlignBottom, Color? font_color = null, string font = "Arial", bool bold = false, bool underline = false)
         {
             int row;
             Int32.TryParse(new String(cell.Where(Char.IsDigit).ToArray()), out row);
