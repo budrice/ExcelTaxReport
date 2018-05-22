@@ -50,6 +50,21 @@ namespace ExcelTaxReport
             }
             return school_district;
         }
-
+        public static string HasExemptions(List<TaxAuthorityPaymentRecord> records, bool checkboxes = true)
+        {
+            string has_exemptions = (checkboxes) ? "x No p Yes" : "No";
+            foreach (TaxAuthorityPaymentRecord record in records)
+            {
+                if (record.ex_disabled == 1
+                 || record.ex_elderly == 1
+                 || record.ex_homestead == 1
+                 || record.ex_mortgage == 1
+                 || record.ex_other.Length > 0)
+                {
+                    has_exemptions = (checkboxes) ? "p No x Yes" : "Yes";
+                }
+            }
+            return has_exemptions;
+        }
     }
 }

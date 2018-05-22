@@ -161,7 +161,7 @@ namespace ExcelTaxReport.Reports
             sheet1.Cells[currentrow, "A"].RowHeight = default_row_height;
             CellValue("A" + currentrow, "Exemptions:", 8, font: "Calibri");
             sheet1.Range["B" + currentrow, "C" + currentrow].Merge();
-            
+            Checkboxes(currentrow, "B", DataFunctions.HasExemptions(parcel.payment_records));
 
         }
 

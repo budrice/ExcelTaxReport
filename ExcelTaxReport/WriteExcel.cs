@@ -48,5 +48,19 @@ namespace ExcelTaxReport
             sheet1.Cells[row, col].VerticalAlignment = valign;
         }
 
+        public void Checkboxes(int row, string col, string val, int fontsize = 10)
+        {
+            int indice_of_first_space = val.IndexOf(" ", 0);
+            int indice_of_second_space = val.IndexOf(" ", indice_of_first_space + 1);
+            int string_length = val.Length;
+            int char_length_between_checkboxes = indice_of_first_space + indice_of_second_space;
+            sheet1.Cells[row, col] = val;
+            sheet1.Cells[row, col].Font.Size = fontsize;
+            sheet1.Cells[row, col].Characters(0, 1).Font.Name = "Wingdings";
+            sheet1.Cells[row, col].Characters(2, char_length_between_checkboxes).Font.Name = "Arial";
+            sheet1.Cells[row, col].Characters(char_length_between_checkboxes + 1, 1).Font.Name = "Wingdings";
+            sheet1.Cells[row, col].Characters(char_length_between_checkboxes + 2, string_length).Font.Name = "Arial";
+        }
+
     }
 }
