@@ -143,5 +143,32 @@ namespace ExcelTaxReport
             }
             return exemptions;
         }
+
+        public static bool StrInString(string stringtocheck, string value)
+        {
+            bool found = false;
+            int j = stringtocheck.IndexOf(value);
+            if (j >= 0)
+            {
+                found = true;
+            }
+            return found;
+        }
+
+        public static bool StrInString(string stringtocheck, string[] value)
+        {
+            bool found = false;
+            int len = value.Length;
+            for (int i = 0; i < len; i++)
+            {
+                string val = value[i];
+                int j = stringtocheck.IndexOf(val);
+                if (j >= 0)
+                {
+                    found = true;
+                }
+            }
+            return found;
+        }
     }
 }

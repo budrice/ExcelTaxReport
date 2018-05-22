@@ -62,5 +62,44 @@ namespace ExcelTaxReport
             sheet1.Cells[row, col].Characters(char_length_between_checkboxes + 2, string_length).Font.Name = "Arial";
         }
 
+        public void DrawLine(string point_a, string point_b, string position, Excel.XlLineStyle style = Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight weight = Excel.XlBorderWeight.xlThin, Color? color = null)
+        {
+            Color line_color = color ?? Color.FromArgb(0, 0, 0);
+            switch (position)
+            {
+                case "top":
+                    sheet1.Range[point_a, point_b].Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = style;
+                    sheet1.Range[point_a, point_b].Borders[Excel.XlBordersIndex.xlEdgeTop].Weight = weight;
+                    sheet1.Range[point_a, point_b].Borders[Excel.XlBordersIndex.xlEdgeTop].Color = line_color;
+                    break;
+                case "bottom":
+                    sheet1.Range[point_a, point_b].Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = style;
+                    sheet1.Range[point_a, point_b].Borders[Excel.XlBordersIndex.xlEdgeBottom].Weight = weight;
+                    sheet1.Range[point_a, point_b].Borders[Excel.XlBordersIndex.xlEdgeBottom].Color = line_color;
+                    break;
+                case "left":
+                    sheet1.Range[point_a, point_b].Borders[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = style;
+                    sheet1.Range[point_a, point_b].Borders[Excel.XlBordersIndex.xlEdgeLeft].Weight = weight;
+                    sheet1.Range[point_a, point_b].Borders[Excel.XlBordersIndex.xlEdgeLeft].Color = line_color;
+                    break;
+                case "right":
+                    sheet1.Range[point_a, point_b].Borders[Excel.XlBordersIndex.xlEdgeRight].LineStyle = style;
+                    sheet1.Range[point_a, point_b].Borders[Excel.XlBordersIndex.xlEdgeRight].Weight = weight;
+                    sheet1.Range[point_a, point_b].Borders[Excel.XlBordersIndex.xlEdgeRight].Color = line_color;
+                    break;
+                case "all":
+                    sheet1.Range[point_a, point_b].Borders.LineStyle = style;
+                    sheet1.Range[point_a, point_b].Borders.Weight = weight;
+                    sheet1.Range[point_a, point_b].Borders.Color = line_color;
+                    break;
+            }
+        }
+
+        public void DrawGrid(string point_a, string point_b, Excel.XlBorderWeight weight = Excel.XlBorderWeight.xlThin, Color? line_color = null)
+        {
+            Color line_rgb = line_color ?? Color.FromArgb(0, 0, 0);
+            sheet1.Range[point_a, point_b].Cells.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+            sheet1.Range[point_a, point_b].Borders.Color = ColorTranslator.ToOle(line_rgb);
+        }
     }
 }

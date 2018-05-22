@@ -32,6 +32,7 @@ namespace ExcelTaxReport.Reports
                 NewExcel();
                 SetMargins();
                 Header(parcel);
+                Content(parcel.payment_records);
                 SaveExcel();
                 CloseExcel();
             }
@@ -161,14 +162,44 @@ namespace ExcelTaxReport.Reports
             sheet1.Cells[currentrow, "A"].RowHeight = default_row_height;
             sheet1.Range["B" + currentrow, "C" + currentrow].Merge();
             sheet1.Range["E" + currentrow, "K" + currentrow].Merge();
+            DrawGrid("B" + currentrow, "C" + currentrow);
             CellValue("A" + currentrow, "Exemptions:", 8, font: "Calibri");
             Checkboxes(currentrow, "B", DataFunctions.HasExemptions(parcel.payment_records));
             CellValue("D" + currentrow, "Description:", 8, font: "Calibri");
             CellValue("E" + currentrow, DataFunctions.ExemptionString(parcel.payment_records, parcel.state), 8);
 
-            currentrow++;
-            sheet1.Cells[currentrow, "A"].RowHeight = default_row_height;
+            
         }
+
+        private void Content(ParcelInformation parcel)
+        {
+            foreach(TaxAuthorityPaymentRecord record in parcel.payment_records)
+            {
+                Valuation(record, parcel);
+            }
+        }
+
+        private void Valuation(TaxAuthorityPaymentRecord taxrecord, ParcelInformation parcel)
+        {
+            string first_six = parcel.client_po_number.Substring(0, 6);
+            string[] array = new string[3];
+            array[0] = "NTN";
+            array[1] = "TCTI";
+            array[2] = "CTCSD";
+
+            currentrow++;
+            if (DataFunctions.StrInString(first_six, array))
+            {
+                this.ColorMergedRow(currentrow, 7.5);
+
+                
+            }
+            else
+            {
+                this.ColorMergedRow(currentrow, 7.5);
+            }
+        }
+
 
         private void SaveExcel()
         {
