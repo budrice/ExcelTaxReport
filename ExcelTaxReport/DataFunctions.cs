@@ -170,5 +170,54 @@ namespace ExcelTaxReport
             }
             return found;
         }
+
+        public static string IsDelinquent(List<PaymentInstallment> installments, bool checkboxes = true)
+        {
+            string is_delq = (checkboxes) ? "x No p Yes" : "No";
+            foreach (PaymentInstallment install in installments)
+            {
+                if (install.is_delinquent == 1)
+                {
+                    is_delq = (checkboxes) ? "p No x Yes" : "Yes";
+                }
+            }
+            return is_delq;
+        }
+
+        public static string DelinquencyDescription(List<PaymentInstallment> installments)
+        {
+            string note = string.Empty;
+            foreach (PaymentInstallment install in installments)
+            {
+                string year = install.year;
+                string num = install.install.ToString();
+                string bamt = String.Format("{0:C}", install.base_amount);
+                string dtdue = install.date_due.ToString("MM/dd/yyyy");
+                string delamt = String.Format("{0:C}", install.delinquent_amount);
+                string gthru = install.date_good_thru.ToString("MM/dd/yyyy");
+
+                if (note.Length > 0)
+                {
+                    note = note + "; ";
+                }
+                if (install.is_delinquent == 1)
+                {
+                    note = note + year + " Installment " + num + ", Base Amount: " + bamt + " originally due " + dtdue + " delinquent in the amount of " + delamt + ". Good through " + gthru + ".\n";
+                }
+            }
+            return note;
+        }
+
+        public static float StringHeight(string text, int font_size, int col_width_px)
+        {
+            Font font = new Font("Arial", font_size, FontStyle.Regular);
+            Bitmap bit = new Bitmap(2000, 2000);
+            Graphics graphic = Graphics.FromImage(bit);
+            SizeF str_size = new SizeF();
+            str_size = graphic.MeasureString(text, font, col_width_px);
+            return str_size.Height;
+        }
+
+
     }
 }
