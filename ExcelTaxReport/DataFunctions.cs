@@ -50,6 +50,7 @@ namespace ExcelTaxReport
             }
             return school_district;
         }
+
         public static string HasExemptions(List<TaxAuthorityPaymentRecord> records, bool checkboxes = true)
         {
             string has_exemptions = (checkboxes) ? "x No p Yes" : "No";
@@ -59,12 +60,88 @@ namespace ExcelTaxReport
                  || record.ex_elderly == 1
                  || record.ex_homestead == 1
                  || record.ex_mortgage == 1
+                 || record.ex_star == 1
+                 || record.ex_veteran == 1
                  || record.ex_other.Length > 0)
                 {
                     has_exemptions = (checkboxes) ? "p No x Yes" : "Yes";
                 }
             }
             return has_exemptions;
+        }
+
+        public static string ExemptionString(List<TaxAuthorityPaymentRecord> records, string state)
+        {
+            int ex_disabled = 0;
+            int ex_elderly = 0;
+            int ex_homestead = 0;
+            int ex_mortgage = 0;
+            int ex_star = 0;
+            int ex_veteran = 0;
+            string other = string.Empty;
+            string exemptions = string.Empty;
+
+            foreach (TaxAuthorityPaymentRecord record in records)
+            {
+                if(record.ex_disabled == 1)
+                {
+                    ex_disabled = 1;
+                }
+                if (record.ex_elderly == 1)
+                {
+                    ex_elderly = 1;
+                }
+                if (record.ex_homestead == 1)
+                {
+                    ex_homestead = 1;
+                }
+                if (record.ex_mortgage == 1)
+                {
+                    ex_mortgage = 1;
+                }
+                if (record.ex_star == 1)
+                {
+                    ex_star = 1;
+                }
+                if (record.ex_veteran == 1)
+                {
+                    ex_veteran = 1;
+                }
+                
+            }
+            if (ex_homestead == 1)
+            {
+                if(state == "CA")
+                {
+                    exemptions = (exemptions.Length > 0) ? "; " + "HomeOwners Exempt" : "HomeOwners Exempt";
+                }
+                else
+                {
+                    exemptions = (exemptions.Length > 0) ? "; " + "Homestead Exempt" : "Homestead Exempt";
+                }
+                ex_homestead = 1;
+            }
+            if (ex_disabled == 1)
+            {
+                exemptions = (exemptions.Length > 0) ? "; " + "Disabled Exempt" : "Disabled Exempt";
+            }
+            if (ex_veteran == 1)
+            {
+                exemptions = (exemptions.Length > 0) ? "; " + "Veteran Exempt" : "Veteran Exempt";
+            }
+            if (ex_mortgage == 1)
+            {
+                exemptions = (exemptions.Length > 0) ? "; " + "Mortgage Exempt" : "Mortgage Exempt";
+            }
+            if (ex_star == 1)
+            {
+                exemptions = (exemptions.Length > 0) ? "; " + "Star Exempt" : "Star Exempt";
+            }
+            if (ex_elderly == 1)
+            {
+                exemptions = (exemptions.Length > 0) ? "; " + "Elderly Exempt" : "Elderly Exempt";
+            }
+            return exemptions;
         }
     }
 }

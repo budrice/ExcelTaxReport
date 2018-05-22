@@ -159,10 +159,15 @@ namespace ExcelTaxReport.Reports
 
             currentrow++;
             sheet1.Cells[currentrow, "A"].RowHeight = default_row_height;
-            CellValue("A" + currentrow, "Exemptions:", 8, font: "Calibri");
             sheet1.Range["B" + currentrow, "C" + currentrow].Merge();
+            sheet1.Range["E" + currentrow, "K" + currentrow].Merge();
+            CellValue("A" + currentrow, "Exemptions:", 8, font: "Calibri");
             Checkboxes(currentrow, "B", DataFunctions.HasExemptions(parcel.payment_records));
+            CellValue("D" + currentrow, "Description:", 8, font: "Calibri");
+            CellValue("E" + currentrow, DataFunctions.ExemptionString(parcel.payment_records, parcel.state), 8);
 
+            currentrow++;
+            sheet1.Cells[currentrow, "A"].RowHeight = default_row_height;
         }
 
         private void SaveExcel()
