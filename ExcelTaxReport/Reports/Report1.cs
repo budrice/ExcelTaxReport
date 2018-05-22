@@ -23,6 +23,7 @@ namespace ExcelTaxReport.Reports
         private bool gridlines = true;
         private double default_row_height = 15;
         int currentrow = 0;
+        int section_flag = 0;
 
         public bool CreateReport()
         {
@@ -32,7 +33,7 @@ namespace ExcelTaxReport.Reports
                 NewExcel();
                 SetMargins();
                 Header(parcel);
-                Content(parcel.payment_records);
+                Content(parcel);
                 SaveExcel();
                 CloseExcel();
             }
@@ -86,6 +87,7 @@ namespace ExcelTaxReport.Reports
         private void Header(ParcelInformation parcel)
         {
             currentrow++;
+            DrawBorder("A" + currentrow, "K" + (currentrow + 11));
             sheet1.Range["A" + currentrow, "K" + currentrow].Merge();
             sheet1.Cells[currentrow, "A"].RowHeight = default_row_height;
             CellValue("A" + currentrow, "Tax Certification", 10, Excel.XlHAlign.xlHAlignCenter, font: "Calibri");
@@ -168,6 +170,7 @@ namespace ExcelTaxReport.Reports
             CellValue("D" + currentrow, "Description:", 8, font: "Calibri");
             CellValue("E" + currentrow, DataFunctions.ExemptionString(parcel.payment_records, parcel.state), 8);
 
+
             
         }
 
@@ -176,6 +179,11 @@ namespace ExcelTaxReport.Reports
             foreach(TaxAuthorityPaymentRecord record in parcel.payment_records)
             {
                 Valuation(record, parcel);
+                if (section_flag == 0)
+                {
+                    Delinquent(record);
+                    section_flag++;
+                }
             }
         }
 
@@ -190,16 +198,50 @@ namespace ExcelTaxReport.Reports
             currentrow++;
             if (DataFunctions.StrInString(first_six, array))
             {
-                this.ColorMergedRow(currentrow, 7.5);
+                ColorMergedRow(currentrow, 7.5);
 
-                
+                currentrow++;
+                sheet1.Cells[currentrow, "A"].RowHeight = 15;
+                sheet1.Range["A" + currentrow, "B" + currentrow].Merge();
+                sheet1.Range["H" + currentrow, "I" + currentrow].Merge();
+                sheet1.Range["J" + currentrow, "K" + currentrow].Merge();
+                CellValue("A" + currentrow, "Millage Rate Information", 8, font: "Calibri");
+                DrawBorder("A" + currentrow, "B" + currentrow);
+                CellValue("C" + currentrow, "Millage Rate:", 8, Excel.XlHAlign.xlHAlignRight, font: "Calibri");
+                CellValue("D" + currentrow, String.Format("{0:C}", taxrecord.tax_information.milage_rate), 8);
+                DrawBorder("A" + currentrow, "B" + currentrow);
+                DrawBorder("A" + (currentrow + 1), "B" + (currentrow + 1));
+                DrawBorder("C" + currentrow, "D" + (currentrow + 1));
+                DrawBorder("E" + currentrow, "G" + (currentrow + 1));
+                DrawBorder("H" + currentrow, "I" + (currentrow + 1));
+                DrawBorder("J" + currentrow, "K" + (currentrow + 1));
+
+                CellValue("H" + currentrow, "Assessed Value:", 8, Excel.XlHAlign.xlHAlignRight, font: "Calibri");
+                CellValue("J" + currentrow, String.Format("{0:C}", taxrecord.assessed_value), 8);
+
+                currentrow++;
+                sheet1.Cells[currentrow, "A"].RowHeight = 15;
+                CellValue("A" + currentrow, "Next due Date:", 8, Excel.XlHAlign.xlHAlignRight, font: "Calibri");
+                CellValue("B" + currentrow, DataFunctions.DateToString(taxrecord.tax_information.milage_next_due), 8);
+                CellValue("C" + currentrow, "Land:", 8, Excel.XlHAlign.xlHAlignRight, font: "Calibri");
+                CellValue("D" + currentrow, String.Format("{0:C}", taxrecord.land_value), 8);
+                sheet1.Range["E" + currentrow, "F" + currentrow].Merge();
+                CellValue("E" + currentrow, "Improvement:", 8, Excel.XlHAlign.xlHAlignCenter, font: "Calibri");
+                CellValue("G" + currentrow, String.Format("{0:C}", taxrecord.improved_value), 6);
+                CellValue("I" + currentrow, "Total:", 8, Excel.XlHAlign.xlHAlignCenter, font: "Calibri");
+                sheet1.Range["J" + currentrow, "K" + currentrow].Merge();
+                CellValue("J" + currentrow, String.Format("{0:C}", taxrecord.total_value), 8);
             }
             else
             {
-                this.ColorMergedRow(currentrow, 7.5);
+                ColorMergedRow(currentrow, 7.5);
             }
         }
 
+        private void Delinquent(TaxAuthorityPaymentRecord taxrecord)
+        {
+
+        }
 
         private void SaveExcel()
         {

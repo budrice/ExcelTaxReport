@@ -101,5 +101,11 @@ namespace ExcelTaxReport
             sheet1.Range[point_a, point_b].Cells.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             sheet1.Range[point_a, point_b].Borders.Color = ColorTranslator.ToOle(line_rgb);
         }
+
+        public void DrawBorder(string point_a, string point_b, Excel.XlBorderWeight weight = Excel.XlBorderWeight.xlThin, Color? line_color = null, Excel.XlLineStyle line = Excel.XlLineStyle.xlContinuous)
+        {
+            Color line_rgb = line_color ?? Color.FromArgb(0, 0, 0);
+            sheet1.Range[point_a, point_b].BorderAround(line, weight, Color: line_rgb);
+        }
     }
 }
