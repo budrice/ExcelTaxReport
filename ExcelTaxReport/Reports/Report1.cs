@@ -26,7 +26,7 @@ namespace ExcelTaxReport.Reports
 
         public bool CreateReport()
         {
-            foreach(ParcelInformation parcel in this.client_order.Parcels)
+            foreach(ParcelInformation parcel in client_order.Parcels)
             {
                 Filepath();
                 NewExcel();
@@ -42,7 +42,7 @@ namespace ExcelTaxReport.Reports
 
         private void Filepath()
         {
-            ClientConfig config = this.client_order.client_config;
+            ClientConfig config = client_order.client_config;
             filepath = config.base_path + config.report_name;
         }
 
@@ -87,7 +87,7 @@ namespace ExcelTaxReport.Reports
             currentrow++;
             sheet1.Range["A" + currentrow, "K" + currentrow].Merge();
             sheet1.Cells[currentrow, "A"].RowHeight = default_row_height;
-            this.CellValue("A" + currentrow, "Tax Certification", 10, Excel.XlHAlign.xlHAlignCenter, font: "Calibri");
+            CellValue("A" + currentrow, "Tax Certification", 10, Excel.XlHAlign.xlHAlignCenter, font: "Calibri");
 
             currentrow++;
             sheet1.Cells[currentrow, "A"].RowHeight = default_row_height;
@@ -96,8 +96,8 @@ namespace ExcelTaxReport.Reports
             sheet1.Cells[currentrow, "A"].RowHeight = default_row_height;
             sheet1.Range["E" + currentrow, "F" + currentrow].Merge();
             sheet1.Range["G" + currentrow, "H" + currentrow].Merge();
-            this.CellValue("E" + currentrow, "Verified as of:", 10, Excel.XlHAlign.xlHAlignRight, font: "Calibri");
-            this.CellValue("G" + currentrow, DataFunctions.DateToString(parcel.effective_date));
+            CellValue("E" + currentrow, "Verified as of:", 10, Excel.XlHAlign.xlHAlignRight, font: "Calibri");
+            CellValue("G" + currentrow, DataFunctions.DateToString(parcel.effective_date));
 
             currentrow++;
             sheet1.Cells[currentrow, "A"].RowHeight = 6.75;
@@ -108,36 +108,60 @@ namespace ExcelTaxReport.Reports
             sheet1.Range["C" + currentrow, "F" + currentrow].Merge();
             sheet1.Range["H" + currentrow, "I" + currentrow].Merge();
             sheet1.Range["J" + currentrow, "K" + currentrow].Merge();
-            this.CellValue("A" + currentrow, "PO Number:", 8, font: "Calibri");
-            this.CellValue("C" + currentrow, parcel.client_po_number, 8);
-            this.CellValue("H" + currentrow, "Assessed Valuation:", 8, font: "Calibri");
-            this.CellValue("J" + currentrow, string.Format("{0:C}", parcel.assessed_valuation), 8, Excel.XlHAlign.xlHAlignRight);
+            CellValue("A" + currentrow, "PO Number:", 8, font: "Calibri");
+            CellValue("C" + currentrow, parcel.client_po_number, 8);
+            CellValue("H" + currentrow, "Assessed Valuation:", 8, font: "Calibri");
+            CellValue("J" + currentrow, string.Format("{0:C}", parcel.assessed_valuation), 8, Excel.XlHAlign.xlHAlignRight);
 
             currentrow++;
             sheet1.Cells[currentrow, "A"].RowHeight = default_row_height;
             sheet1.Range["A" + currentrow, "B" + currentrow].Merge();
             sheet1.Range["C" + currentrow, "F" + currentrow].Merge();
             sheet1.Range["I" + currentrow, "K" + currentrow].Merge();
-            this.CellValue("A" + currentrow, "Property Owner:", 8, font: "Calibri");
-            this.CellValue("C" + currentrow, parcel.assessed_owners, 8);
-            this.CellValue("H" + currentrow, "County:", 8, font: "Calibri");
-            this.CellValue("I" + currentrow, parcel.county, 8, Excel.XlHAlign.xlHAlignCenter);
+            CellValue("A" + currentrow, "Property Owner:", 8, font: "Calibri");
+            CellValue("C" + currentrow, parcel.assessed_owners, 8);
+            CellValue("H" + currentrow, "County:", 8, font: "Calibri");
+            CellValue("I" + currentrow, parcel.county, 8, Excel.XlHAlign.xlHAlignCenter);
 
             currentrow++;
             sheet1.Cells[currentrow, "A"].RowHeight = default_row_height;
             sheet1.Range["A" + currentrow, "B" + currentrow].Merge();
             sheet1.Range["C" + currentrow, "F" + currentrow].Merge();
-            this.CellValue("A" + currentrow, "Tax Address:", 8, font: "Calibri");
-            this.CellValue("C" + currentrow, parcel.assessed_address, 8);
+            CellValue("A" + currentrow, "Tax Address:", 8, font: "Calibri");
+            CellValue("C" + currentrow, parcel.assessed_address, 8);
 
             currentrow++;
             sheet1.Cells[currentrow, "A"].RowHeight = default_row_height;
             sheet1.Range["A" + currentrow, "B" + currentrow].Merge();
             sheet1.Range["C" + currentrow, "F" + currentrow].Merge();
-            this.CellValue("A" + currentrow, "Town/City:", 8, font: "Calibri");
-            this.CellValue("C" + currentrow, DataFunctions.TownCity(parcel.payment_records), 8);
+            CellValue("A" + currentrow, "Town/City:", 8, font: "Calibri");
+            CellValue("C" + currentrow, DataFunctions.TownCity(parcel.payment_records), 8);
 
+            currentrow++;
+            sheet1.Cells[currentrow, "A"].RowHeight = default_row_height;
+            sheet1.Range["A" + currentrow, "B" + currentrow].Merge();
+            sheet1.Range["C" + currentrow, "F" + currentrow].Merge();
+            CellValue("A" + currentrow, "Parcel ID:", 8, font: "Calibri");
+            CellValue("C" + currentrow, parcel.parcel_number, 8);
 
+            currentrow++;
+            sheet1.Cells[currentrow, "A"].RowHeight = default_row_height;
+            sheet1.Range["A" + currentrow, "B" + currentrow].Merge();
+            sheet1.Range["C" + currentrow, "F" + currentrow].Merge();
+            sheet1.Range["I" + currentrow, "K" + currentrow].Merge();
+            CellValue("A" + currentrow, "School District:", 8, font: "Calibri");
+            CellValue("C" + currentrow, DataFunctions.SchoolDistrict(parcel.payment_records), 8);
+            CellValue("H" + currentrow, "Class Code:", 8, font: "Calibri");
+            CellValue("I" + currentrow, parcel.class_code, 8);
+
+            currentrow++;
+            sheet1.Cells[currentrow, "A"].RowHeight = 9;
+
+            currentrow++;
+            sheet1.Cells[currentrow, "A"].RowHeight = default_row_height;
+            CellValue("A" + currentrow, "Exemptions:", 8, font: "Calibri");
+            sheet1.Range["B" + currentrow, "C" + currentrow].Merge();
+            
 
         }
 

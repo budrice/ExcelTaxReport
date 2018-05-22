@@ -38,6 +38,18 @@ namespace ExcelTaxReport
             return taxtype;
         }
 
+        public static string SchoolDistrict(List<TaxAuthorityPaymentRecord> records)
+        {
+            string school_district = string.Empty;
+            foreach (TaxAuthorityPaymentRecord record in records)
+            {
+                if (record.tax_type == "School")
+                {
+                    school_district = record.tax_authority.name;
+                }
+            }
+            return school_district;
+        }
 
     }
 }
