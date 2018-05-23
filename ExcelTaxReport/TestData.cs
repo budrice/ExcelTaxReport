@@ -72,12 +72,14 @@ namespace ExcelTaxReport
             tax_authority.fiscal_year = "2018";
             tax_authority.installment_info = "installment info";
             tax_authority.payment_address_1 = "1800 66th Street North";
-            tax_authority.payment_address_2 = "";
+            tax_authority.payment_address_2 = "suite ABC";
             tax_authority.payment_city = "St.Petersburg";
             tax_authority.payment_state = "FL";
             tax_authority.payment_zip = "33710";
+            tax_authority.payment_phone = "(727)123-4567";
+            tax_authority.payment_ext = "9876";
             tax_authority.schedule = "Annually";
-            tax_authority.ta_other_notes = "";
+            tax_authority.ta_other_notes = "Tax Authority other notes.";
             payment_record.tax_authority = tax_authority;
 
             TaxInformation tax_info = new TaxInformation();

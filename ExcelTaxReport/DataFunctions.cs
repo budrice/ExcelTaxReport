@@ -218,6 +218,23 @@ namespace ExcelTaxReport
             return str_size.Height;
         }
 
+        public static decimal TotalBilled(List<PaymentInstallment> installments)
+        {
+            decimal total = 0;
+            int i = 0;
+            int count = installments.Count();
+            for (i = 0; i < count; i++)
+            {
+                string a = installments.ElementAt(0).year;
+                string b = installments.ElementAt(i).year;
+                if (String.Compare(a, b) == 0)
+                {
+                    total = total + installments.ElementAt(i).base_amount;
+
+                }
+            }
+            return total;
+        }
 
     }
 }

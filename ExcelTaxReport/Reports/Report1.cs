@@ -18,12 +18,12 @@ namespace ExcelTaxReport.Reports
             this.client_order = client_order;
         }
 
-        object misValue = System.Reflection.Missing.Value;
+        object misValue = System.Reflection.Missing.Value;// used to create the worksheet
         private string filepath = string.Empty;
         private bool gridlines = true;
         private double default_row_height = 15;
         int currentrow = 0;
-        int section_flag = 0;
+        int delq_section_flag = 0;
 
         public bool CreateReport()
         {
@@ -169,9 +169,6 @@ namespace ExcelTaxReport.Reports
             Checkboxes(currentrow, "B", DataFunctions.HasExemptions(parcel.payment_records));
             CellValue("D" + currentrow, "Description:", 8, font: "Calibri");
             CellValue("E" + currentrow, DataFunctions.ExemptionString(parcel.payment_records, parcel.state), 8);
-
-
-            
         }
 
         private void Content(ParcelInformation parcel)
@@ -179,11 +176,12 @@ namespace ExcelTaxReport.Reports
             foreach(TaxAuthorityPaymentRecord record in parcel.payment_records)
             {
                 Valuation(record, parcel);
-                if (section_flag == 0)
+                if (delq_section_flag == 0)
                 {
                     Delinquent(record);
-                    section_flag++;
+                    delq_section_flag++;
                 }
+                PaymentInstallments(record);
             }
         }
 
@@ -243,9 +241,6 @@ namespace ExcelTaxReport.Reports
             currentrow++;
             this.ColorMergedRow(currentrow, 7.5);
 
-            
-
-
             currentrow++;
             sheet1.Cells[currentrow, "A"].RowHeight = 15;
             sheet1.Range["A" + currentrow, "F" + currentrow].Merge();
@@ -258,6 +253,7 @@ namespace ExcelTaxReport.Reports
             sheet1.Range["D" + currentrow, "G" + currentrow].Merge();
             sheet1.Range["H" + currentrow, "K" + currentrow].Merge();
             CellValue("A" + currentrow, "Delinquencies have been verified with:", 8, font: "Calibri");
+            CellValue("H" + currentrow, record.tax_authority.payment_string_address, 8);
 
             currentrow++;
             sheet1.Cells[currentrow, "A"].RowHeight = 15;
@@ -266,13 +262,15 @@ namespace ExcelTaxReport.Reports
             sheet1.Range["H" + currentrow, "K" + currentrow].Merge();
             CellValue("A" + currentrow, "TAXES DELINQUENT?", 8, font: "Calibri");
             Checkboxes(currentrow, "C", DataFunctions.IsDelinquent(record.installments));
+            CellValue("H" + currentrow, record.tax_authority.payment_city_state_zip, 8);
 
             currentrow++;
             sheet1.Cells[currentrow, "A"].RowHeight = 15;
             sheet1.Range["A" + currentrow, "C" + currentrow].Merge();
             sheet1.Range["D" + currentrow, "G" + currentrow].Merge();
-            CellValue("A" + currentrow, "Description of delinquent taxes:", 8, font: "Calibri");
             sheet1.Range["H" + currentrow, "K" + currentrow].Merge();
+            CellValue("A" + currentrow, "Description of delinquent taxes:", 8, font: "Calibri");
+            
 
             currentrow++;
             sheet1.Cells[currentrow, "A"].RowHeight = 15;
@@ -280,6 +278,7 @@ namespace ExcelTaxReport.Reports
             sheet1.Range["I" + currentrow, "K" + currentrow].Merge();
             sheet1.Cells[currentrow, "A"].WrapText = true;
             CellValue("H" + currentrow, "Phone:", 8, font: "Calibri");
+            CellValue("I" + currentrow, record.tax_authority.payment_phone_string, 8);
 
             DrawBorder("A" + (currentrow - 5), "G" + (currentrow - 2));
             DrawBorder("H" + (currentrow - 5), "K" + (currentrow - 1));
@@ -300,6 +299,32 @@ namespace ExcelTaxReport.Reports
                 sheet1.Cells[currentrow, "A"].RowHeight = height;
                 CellValue("H" + (currentrow - 3), record.tax_authority.payment_string_address, 8);
             }
+        }
+
+        private void PaymentInstallments(TaxAuthorityPaymentRecord record)
+        {
+            currentrow++;
+            this.ColorMergedRow(currentrow, 7.5);
+
+            currentrow++;
+            sheet1.Cells[currentrow, "A"].RowHeight = 15;
+            sheet1.Range["D" + currentrow, "E" + currentrow].Merge();
+            sheet1.Range["H" + currentrow, "I" + currentrow].Merge();
+            sheet1.Range["J" + currentrow, "K" + currentrow].Merge();
+            CellValue("A" + currentrow, "Tax Year:", 8, font: "Calibri");
+            CellValue("B" + currentrow, record.installments[0].year, 8);
+            CellValue("C" + currentrow, "Tax Type:", 8, font: "Calibri");
+            CellValue("D" + currentrow, record.tax_type, 8);
+            CellValue("F" + currentrow, "Fiscal Year:", 6, font: "Calibri");
+            CellValue("G" + currentrow, record.tax_authority.fiscal_year, 6, font: "Calibri");
+            CellValue("H" + currentrow, "Installment Info:", 8, font: "Calibri");
+            CellValue("J" + currentrow, record.tax_authority.installment_info, 8, font: "Calibri");
+
+            currentrow++;
+            sheet1.Cells[currentrow, "A"].RowHeight = 15;
+            sheet1.Range["B" + currentrow, "K" + currentrow].Merge();
+            CellValue("A" + currentrow, "Total Tax Billed:");
+            CellValue("B" + currentrow, string.Format("{0:C}", DataFunctions.TotalBilled(record.installments)));
         }
 
         private void SaveExcel()
