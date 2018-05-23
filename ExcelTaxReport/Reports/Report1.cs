@@ -350,15 +350,30 @@ namespace ExcelTaxReport.Reports
                 DrawBorder("F" + currentrow, "G" + currentrow);
                 DrawBorder("H" + currentrow, "I" + currentrow);
                 DrawBorder("J" + currentrow, "K" + currentrow);
-
-                CellValue("A" + currentrow, install_titles[i], 8, valign: Excel.XlVAlign.xlVAlignTop);
+                CellValue("A" + currentrow, install_titles[i], 8, valign: Excel.XlVAlign.xlVAlignTop, font: "Calibri");
                 Checkboxes(currentrow, "B", DataFunctions.IsPaid(install.date_paid));
+                CellValue("D" + currentrow, "Due Date:", 8, valign: Excel.XlVAlign.xlVAlignTop, font: "Calibri");
+                CellValue("E" + currentrow, DataFunctions.DateToString(install.date_due), 8);
+                CellValue("F" + currentrow, "Paid Date:", 8, valign: Excel.XlVAlign.xlVAlignTop, font: "Calibri");
+                CellValue("G" + currentrow, DataFunctions.DateToString(install.date_paid), 8);
+                CellValue("H" + currentrow, "Delinquent\nDate:", 8, valign: Excel.XlVAlign.xlVAlignTop, font: "Calibri");
+                CellValue("I" + currentrow, DataFunctions.DateToString(install.date_due.AddDays(1)), 8);
+                CellValue("J" + currentrow, "Billed\nPaid:", 8, valign: Excel.XlVAlign.xlVAlignTop, font: "Calibri");
+                CellValue("K" + currentrow, String.Format("{0:C}", install.base_amount) + "\n" + String.Format("{0:C}", install.paid), 8);
                 i++;
             }
 
             for (int j = i; j < 4; j++)
             {
-                
+                currentrow++;
+                CellValue("A" + currentrow, install_titles[i], 8, valign: Excel.XlVAlign.xlVAlignTop, font: "Calibri");
+                Checkboxes(currentrow, "C", "p Paid p Unpaid");
+                sheet1.Range["B" + currentrow, "C" + currentrow].Merge();
+                CellValue("D" + currentrow, "Due Date:", 8, valign: Excel.XlVAlign.xlVAlignTop, font: "Calibri");
+                CellValue("F" + currentrow, "Paid Date:", 8, valign: Excel.XlVAlign.xlVAlignTop, font: "Calibri");
+                CellValue("H" + currentrow, "Delinquent\nDate:", 8, valign: Excel.XlVAlign.xlVAlignTop, font: "Calibri");
+                CellValue("J" + currentrow, "Billed\nPaid:", 8, valign: Excel.XlVAlign.xlVAlignTop, font: "Calibri");
+                i++;
             }
 
             
