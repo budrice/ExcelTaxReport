@@ -32,6 +32,7 @@ namespace ExcelTaxReport.Reports
                 ColumnWidths();
                 Header(parcel);
                 Content(parcel);
+                Disclaimer();
                 SaveExcel();
                 CloseExcel();
             }
@@ -452,6 +453,20 @@ namespace ExcelTaxReport.Reports
             sheet1.Cells[currentrow, "A"].RowHeight = 15;
             CellValue("H" + currentrow, record.tax_authority.payment_city_state_zip, 8, valign: Excel.XlVAlign.xlVAlignTop);
 
+        }
+
+        private void Disclaimer()
+        {
+            string disclaimer = client_order.report_config.disclaimer;
+            var disclaimer_height = DataFunctions.StringHeight(disclaimer, 6, 800);
+
+            currentrow++;
+            sheet1.Cells[currentrow, "A"].RowHeight = 7.5;
+
+            currentrow++;
+            sheet1.Cells[currentrow, "A"].RowHeight = disclaimer_height;
+            sheet1.Range["A" + currentrow, "K" + currentrow].Merge();
+            CellValue("A" + currentrow, disclaimer, 6, Excel.XlHAlign.xlHAlignCenter, Excel.XlVAlign.xlVAlignTop);
         }
 
         /// <summary>

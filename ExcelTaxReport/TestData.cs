@@ -78,20 +78,21 @@ namespace ExcelTaxReport
             tax_authority.payment_phone = "(727)123-4567";
             tax_authority.payment_ext = "9876";
             tax_authority.schedule = "Annually";
-            tax_authority.ta_other_notes = "Tax Authority other notes.";
+            tax_authority.ta_other_notes = "Pinellas County is the only taxing authority for this property.\n\nPinellas County collects annually due by 7/15 with an option to pay in installments due by 7/15, 10/15, 1/15 & 4/15.\n\nThere is a 10 day grace period for installment 1 only.\n\nPINELLAS COUNTY DOES NOT PROVIDE PAID DATES; PAYMENTS ARE PROCESSED AS PAID TIMELY BY THE DUE DATE.";
             payment_record.tax_authority = tax_authority;
 
             TaxInformation tax_info = new TaxInformation();
-            tax_info.jurisdiction_name = "";
-            tax_info.jurisdiction_type = "";
+            tax_info.jurisdiction_name = "Pinellas County Tax Collector";
+            tax_info.jurisdiction_type = "County";
             tax_info.tax_rate = 0.00M;
-            tax_info.exemptions = "";
-            tax_info.milage_rate = 0.00M;
+            tax_info.exemptions = "Veterine Exemption";
+            tax_info.milage_rate = 22.0150M;
             tax_info.milage_next_due = DateTime.Parse("2018-12-01");
 
             PaymentInstallment install_1 = new PaymentInstallment();
             install_1.amount_due = 0.00M;
-            install_1.base_amount = 0.00M;
+            install_1.paid = 2459.89M;
+            install_1.base_amount = 2459.89M;
             install_1.date_due = DateTime.Parse("2017-12-31");
             install_1.date_good_thru = DateTime.Parse("2018-02-28");
             install_1.date_paid = DateTime.Parse("2018-02-01");
@@ -107,12 +108,13 @@ namespace ExcelTaxReport
 
             PaymentInstallment install_2 = new PaymentInstallment();
             install_2.amount_due = 0.00M;
-            install_2.base_amount = 0.00M;
+            install_2.paid = 2459.89M;
+            install_2.base_amount = 2459.89M;
             install_2.date_due = DateTime.Parse("2017-12-31");
             install_2.date_good_thru = DateTime.Parse("2018-02-01");
             install_2.date_paid = DateTime.Parse("2018-02-01");
             install_2.delinquent_amount = 0.00M;
-            install_2.install = 1;
+            install_2.install = 2;
             install_2.is_delinquent = 0;
             install_2.is_estimate = 0;
             install_2.is_exempt = 0;
@@ -123,12 +125,13 @@ namespace ExcelTaxReport
 
             PaymentInstallment install_3 = new PaymentInstallment();
             install_3.amount_due = 0.00M;
-            install_3.base_amount = 0.00M;
+            install_3.paid = 2459.89M;
+            install_3.base_amount = 2459.89M;
             install_3.date_due = DateTime.Parse("2017-12-31");
             install_3.date_good_thru = DateTime.Parse("2018-02-01");
             install_3.date_paid = DateTime.Parse("2018-02-01");
             install_3.delinquent_amount = 0.00M;
-            install_3.install = 1;
+            install_3.install = 3;
             install_3.is_delinquent = 0;
             install_3.is_estimate = 0;
             install_3.is_exempt = 0;
@@ -138,14 +141,14 @@ namespace ExcelTaxReport
             payment_record.installments.Add(install_3);
 
             PaymentInstallment install_4 = new PaymentInstallment();
-            install_4.amount_due = 0.00M;
-            install_4.base_amount = 0.00M;
+            install_4.amount_due = 2459.89M;
+            install_4.base_amount = 2459.89M;
             install_4.date_due = DateTime.Parse("2017-12-31");
             install_4.date_good_thru = DateTime.Parse("2018-02-01");
-            install_4.date_paid = DateTime.Parse("2018-02-01");
+            install_4.date_paid = DateTime.MinValue;
             install_4.delinquent_amount = 0.00M;
-            install_4.install = 1;
-            install_4.is_delinquent = 0;
+            install_4.install = 4;
+            install_4.is_delinquent = 1;
             install_4.is_estimate = 0;
             install_4.is_exempt = 0;
             install_4.is_partial = 0;
