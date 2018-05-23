@@ -42,6 +42,7 @@ namespace ExcelTaxReport
             parcel.effective_date = DateTime.Parse("2018-05-01");
             parcel.legal_desc = "SAFFORD'S ADD REVISED BLK 1, E 75FT OF LOTS 6 AND 7";
             parcel.class_code = "Apartments (10 units to 49 units)";
+            parcel.assessed_valuation = 408980.00M;
 
             TaxAuthorityPaymentRecord payment_record = new TaxAuthorityPaymentRecord();
             payment_record.tax_type = "County";
@@ -63,7 +64,8 @@ namespace ExcelTaxReport
             payment_record.lawsuit_case = string.Empty;
 
             TaxAuthority tax_authority = new TaxAuthority();
-            tax_authority.name = "Pinellas County TAx Collector";
+            tax_authority.name = "Pinellas County Tax Collector";
+            tax_authority.payment_name = "Pinellas County Tax Collector";
             tax_authority.current_tax_year = "2018";
             tax_authority.discounts = "N/A";
             tax_authority.duplicate_bill_fee = 5.00M;

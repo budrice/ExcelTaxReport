@@ -405,6 +405,53 @@ namespace ExcelTaxReport.Reports
                 CellValue("J" + currentrow, "Billed\nPaid:", 8, valign: Excel.XlVAlign.xlVAlignTop, font: "Calibri");
                 i++;
             }
+
+            currentrow++;
+            sheet1.Cells[currentrow, "A"].RowHeight = 15;
+            sheet1.Range["A" + currentrow, "G" + currentrow].Merge();
+            sheet1.Range["A" + (currentrow + 1), "G" + (currentrow + 2)].Merge();
+            sheet1.Range["H" + currentrow, "K" + currentrow].Merge();
+            sheet1.Range["H" + (currentrow + 1), "K" + (currentrow + 1)].Merge();
+            sheet1.Range["H" + (currentrow + 2), "K" + (currentrow + 2)].Merge();
+            DrawBorder("A" + currentrow, "G" + (currentrow + 2));
+            DrawBorder("H" + currentrow, "K" + (currentrow + 1));
+            DrawBorder("H" + (currentrow + 2), "K" + (currentrow + 5));
+            DrawBorder("A" + (currentrow + 3), "G" + (currentrow + 5));
+            CellValue("A" + currentrow, "Notes:", 8, font: "Calibri", underline: true);
+            string notes = BuildNote(record);
+            CellValue("A" + (currentrow + 1), notes, 8, valign: Excel.XlVAlign.xlVAlignTop);
+            CellValue("H" + currentrow, "Phone Number:", 8, font: "Calibri");
+            CellValue("H" + (currentrow + 1), record.tax_authority.payment_phone_string, 8, valign: Excel.XlVAlign.xlVAlignTop);
+
+            currentrow++;
+            var height = DataFunctions.StringHeight(notes, 8, 600);
+            sheet1.Cells[currentrow, "A"].RowHeight = height;
+            sheet1.Range["A" + currentrow, "G" + (currentrow + 1)].Merge();
+
+            currentrow++;
+            sheet1.Cells[currentrow, "A"].RowHeight = 15;
+            CellValue("H" + currentrow, "Payee Name and Address:", 8, font: "Calibri", underline: true);
+
+            currentrow++;
+            sheet1.Cells[currentrow, "A"].RowHeight = 15;
+            sheet1.Range["A" + currentrow, "B" + currentrow].Merge();
+            sheet1.Range["C" + currentrow, "G" + currentrow].Merge();
+            sheet1.Range["H" + currentrow, "K" + currentrow].Merge();
+            CellValue("A" + currentrow, "Discounts Available:", 8, font: "Calibri");
+            CellValue("H" + currentrow, record.tax_authority.payment_name, 8, valign: Excel.XlVAlign.xlVAlignTop);
+
+            currentrow++;
+            sheet1.Cells[currentrow, "A"].RowHeight = 15;
+            sheet1.Range["A" + currentrow, "G" + (currentrow + 1)].Merge();
+            sheet1.Range["H" + currentrow, "K" + currentrow].Merge();
+            sheet1.Range["H" + (currentrow + 1), "K" + (currentrow + 1)].Merge();
+            CellValue("A" + currentrow, record.tax_authority.discounts, 8, valign: Excel.XlVAlign.xlVAlignTop);
+            CellValue("H" + currentrow, record.tax_authority.payment_string_address, 8, valign: Excel.XlVAlign.xlVAlignTop);
+
+            currentrow++;
+            sheet1.Cells[currentrow, "A"].RowHeight = 15;
+            CellValue("H" + currentrow, record.tax_authority.payment_city_state_zip, 8, valign: Excel.XlVAlign.xlVAlignTop);
+
         }
 
         /// <summary>
@@ -429,6 +476,30 @@ namespace ExcelTaxReport.Reports
             Marshal.FinalReleaseComObject(sheet1);
             Marshal.ReleaseComObject(xlWorkbook);
             Marshal.ReleaseComObject(xlApp);
+        }
+
+        /// <summary>
+        /// BuildNote
+        /// </summary>
+        /// <param name="record"></param>
+        /// <returns>Returns note.</returns>
+        private string BuildNote(TaxAuthorityPaymentRecord record)
+        {
+            string note = string.Empty;
+            note = record.tax_authority.ta_other_notes + "\n" + record.research_notes + "\n";
+            if (record.unincorporated == 1)
+            {
+                int i = note.IndexOf("applicable");
+                if (i > 0)
+                {
+                    note.Insert(i + 11, " This is the only taxing authority for the subject property. ");
+                }
+                else
+                {
+                    note = note + "\n" + " This is the only taxing authority for the subject property. ";
+                }
+            }
+            return note;
         }
     }
 }
