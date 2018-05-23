@@ -70,7 +70,6 @@ namespace ExcelTaxReport
             tax_authority.discounts = "N/A";
             tax_authority.duplicate_bill_fee = 5.00M;
             tax_authority.fiscal_year = "2018";
-            tax_authority.installment_info = "installment info";
             tax_authority.payment_address_1 = "1800 66th Street North";
             tax_authority.payment_address_2 = "suite ABC";
             tax_authority.payment_city = "St.Petersburg";

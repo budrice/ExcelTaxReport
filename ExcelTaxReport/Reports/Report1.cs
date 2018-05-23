@@ -32,6 +32,7 @@ namespace ExcelTaxReport.Reports
                 Filepath();
                 NewExcel();
                 SetMargins();
+                ColumnWidths();
                 Header(parcel);
                 Content(parcel);
                 SaveExcel();
@@ -311,6 +312,10 @@ namespace ExcelTaxReport.Reports
             sheet1.Range["D" + currentrow, "E" + currentrow].Merge();
             sheet1.Range["H" + currentrow, "I" + currentrow].Merge();
             sheet1.Range["J" + currentrow, "K" + currentrow].Merge();
+            DrawBorder("A" + currentrow, "B" + currentrow);
+            DrawBorder("C" + currentrow, "E" + currentrow);
+            DrawBorder("F" + currentrow, "G" + currentrow);
+            DrawBorder("H" + currentrow, "K" + currentrow);
             CellValue("A" + currentrow, "Tax Year:", 8, font: "Calibri");
             CellValue("B" + currentrow, record.installments[0].year, 8);
             CellValue("C" + currentrow, "Tax Type:", 8, font: "Calibri");
@@ -318,13 +323,45 @@ namespace ExcelTaxReport.Reports
             CellValue("F" + currentrow, "Fiscal Year:", 6, font: "Calibri");
             CellValue("G" + currentrow, record.tax_authority.fiscal_year, 6, font: "Calibri");
             CellValue("H" + currentrow, "Installment Info:", 8, font: "Calibri");
-            CellValue("J" + currentrow, record.tax_authority.installment_info, 8, font: "Calibri");
+            CellValue("J" + currentrow, record.tax_authority.schedule, 8, font: "Calibri");
 
             currentrow++;
             sheet1.Cells[currentrow, "A"].RowHeight = 15;
+            DrawBorder("A" + currentrow, "K" + currentrow);
             sheet1.Range["B" + currentrow, "K" + currentrow].Merge();
-            CellValue("A" + currentrow, "Total Tax Billed:");
-            CellValue("B" + currentrow, string.Format("{0:C}", DataFunctions.TotalBilled(record.installments)));
+            CellValue("A" + currentrow, "Total Tax Billed:", 8, font: "Calibri");
+            CellValue("B" + currentrow, string.Format("{0:C}", DataFunctions.TotalBilled(record.installments)), 8);
+
+            string[] install_titles = new string[4];
+            install_titles[0] = "1st Installment:";
+            install_titles[1] = "2nd Installment:";
+            install_titles[2] = "3rd Installment:";
+            install_titles[3] = "4th Installment:";
+            int len = install_titles.Length;
+            int i = 0;
+            foreach (PaymentInstallment install in record.installments)
+            {
+                currentrow++;
+                sheet1.Range["B" + currentrow, "C" + currentrow].Merge();
+                sheet1.Cells[currentrow, "A"].RowHeight = 26.25;
+                DrawCellBorder(currentrow, "A");
+                DrawBorder("B" + currentrow, "C" + currentrow);
+                DrawBorder("D" + currentrow, "E" + currentrow);
+                DrawBorder("F" + currentrow, "G" + currentrow);
+                DrawBorder("H" + currentrow, "I" + currentrow);
+                DrawBorder("J" + currentrow, "K" + currentrow);
+
+                CellValue("A" + currentrow, install_titles[i], 8, valign: Excel.XlVAlign.xlVAlignTop);
+                Checkboxes(currentrow, "B", DataFunctions.IsPaid(install.date_paid));
+                i++;
+            }
+
+            for (int j = i; j < 4; j++)
+            {
+                
+            }
+
+            
         }
 
         private void SaveExcel()

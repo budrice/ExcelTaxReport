@@ -50,7 +50,6 @@ namespace ExcelTaxReport.Models
         public string fiscal_year { get; set; }
         public decimal duplicate_bill_fee { get; set; }
         public string discounts { get; set; }
-        public string installment_info { get; set; }
         public string ta_other_notes { get; set; }
     }
 }

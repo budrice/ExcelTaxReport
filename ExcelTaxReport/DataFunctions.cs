@@ -236,5 +236,14 @@ namespace ExcelTaxReport
             return total;
         }
 
+        public static string IsPaid(DateTime date_paid, bool checkboxes = true)
+        {
+            string is_paid = (checkboxes) ? "x Paid p Unpaid" : "Paid";
+            if (date_paid == DateTime.MinValue)
+            {
+                is_paid = (checkboxes) ? "p Paid x Unpaid" : "Owing";
+            }
+            return is_paid;
+        }
     }
 }
