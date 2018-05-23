@@ -1,16 +1,21 @@
-﻿using ExcelTaxReport;
-using ExcelTaxReport.Models;
+﻿using ExcelTaxReport.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExcelTaxReport
 {
+    /// <summary>
+    /// DataFunctions project shared functions
+    /// </summary>
     public class DataFunctions
     {
+        /// <summary>
+        /// DateToString
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns>Returns date string value or empty string.</returns>
         public static string DateToString(DateTime dt)
         {
             string date_val = dt.ToString("MM/dd/yyyy");
@@ -21,6 +26,11 @@ namespace ExcelTaxReport
             return date_val;
         }
 
+        /// <summary>
+        /// TownCity
+        /// </summary>
+        /// <param name="tax_records"></param>
+        /// <returns>Returns string tax type.</returns>
         public static string TownCity(List<TaxAuthorityPaymentRecord> tax_records)
         {
             string taxtype = string.Empty;
@@ -38,6 +48,11 @@ namespace ExcelTaxReport
             return taxtype;
         }
 
+        /// <summary>
+        /// SchoolDistrict
+        /// </summary>
+        /// <param name="records"></param>
+        /// <returns>Returns string school district or empty string.</returns>
         public static string SchoolDistrict(List<TaxAuthorityPaymentRecord> records)
         {
             string school_district = string.Empty;
@@ -51,6 +66,12 @@ namespace ExcelTaxReport
             return school_district;
         }
 
+        /// <summary>
+        /// HasExemptions
+        /// </summary>
+        /// <param name="records"></param>
+        /// <param name="checkboxes"></param>
+        /// <returns>Returns string for wingdings checkboxes representing Yes/No or a string for Yes or No.</returns>
         public static string HasExemptions(List<TaxAuthorityPaymentRecord> records, bool checkboxes = true)
         {
             string has_exemptions = (checkboxes) ? "x No p Yes" : "No";
@@ -70,6 +91,12 @@ namespace ExcelTaxReport
             return has_exemptions;
         }
 
+        /// <summary>
+        /// ExemptionString
+        /// </summary>
+        /// <param name="records"></param>
+        /// <param name="state"></param>
+        /// <returns>Returns string of exemptions separated by semi-colons.</returns>
         public static string ExemptionString(List<TaxAuthorityPaymentRecord> records, string state)
         {
             int ex_disabled = 0;
@@ -144,6 +171,12 @@ namespace ExcelTaxReport
             return exemptions;
         }
 
+        /// <summary>
+        /// StrInString
+        /// </summary>
+        /// <param name="stringtocheck"></param>
+        /// <param name="value"></param>
+        /// <returns>Boolean representing found string value in string</returns>
         public static bool StrInString(string stringtocheck, string value)
         {
             bool found = false;
@@ -155,6 +188,12 @@ namespace ExcelTaxReport
             return found;
         }
 
+        /// <summary>
+        /// StrInString
+        /// </summary>
+        /// <param name="stringtocheck"></param>
+        /// <param name="value"></param>
+        /// <returns>Boolean representing found value in array of strings</returns>
         public static bool StrInString(string stringtocheck, string[] value)
         {
             bool found = false;
@@ -171,6 +210,12 @@ namespace ExcelTaxReport
             return found;
         }
 
+        /// <summary>
+        /// IsDelinquent
+        /// </summary>
+        /// <param name="installments"></param>
+        /// <param name="checkboxes"></param>
+        /// <returns>Returns string for wingdings checkboxes representing Yes/No or a string for Yes or No.</returns>
         public static string IsDelinquent(List<PaymentInstallment> installments, bool checkboxes = true)
         {
             string is_delq = (checkboxes) ? "x No p Yes" : "No";
@@ -184,6 +229,11 @@ namespace ExcelTaxReport
             return is_delq;
         }
 
+        /// <summary>
+        /// DelinquencyDescription
+        /// </summary>
+        /// <param name="installments"></param>
+        /// <returns>Returns note.</returns>
         public static string DelinquencyDescription(List<PaymentInstallment> installments)
         {
             string note = string.Empty;
@@ -208,6 +258,13 @@ namespace ExcelTaxReport
             return note;
         }
 
+        /// <summary>
+        /// StringHeight
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="font_size"></param>
+        /// <param name="col_width_px"></param>
+        /// <returns>Returns string height float value.</returns>
         public static float StringHeight(string text, int font_size, int col_width_px)
         {
             Font font = new Font("Arial", font_size, FontStyle.Regular);
@@ -218,6 +275,11 @@ namespace ExcelTaxReport
             return str_size.Height;
         }
 
+        /// <summary>
+        /// TotalBilled
+        /// </summary>
+        /// <param name="installments"></param>
+        /// <returns>Returns the decimal value for total base_amount.</returns>
         public static decimal TotalBilled(List<PaymentInstallment> installments)
         {
             decimal total = 0;
@@ -236,6 +298,12 @@ namespace ExcelTaxReport
             return total;
         }
 
+        /// <summary>
+        /// IsPaid
+        /// </summary>
+        /// <param name="date_paid"></param>
+        /// <param name="checkboxes"></param>
+        /// <returns>Returns string for wingdings checkboxes representing Paid/Unpaid or a string for Paid or Owing.</returns>
         public static string IsPaid(DateTime date_paid, bool checkboxes = true)
         {
             string is_paid = (checkboxes) ? "x Paid p Unpaid" : "Paid";

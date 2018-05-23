@@ -1,8 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ExcelTaxReport.Models
 {
+    /// <summary>
+    /// tax authority payment record
+    /// </summary>
+    /// <remarks>
+    /// A payment record to tax authority payment contains:
+    /// a tax authority; tax information; List of installment payments
+    /// </remarks>
     public class TaxAuthorityPaymentRecord
     {
         public string tax_type { get; set; }

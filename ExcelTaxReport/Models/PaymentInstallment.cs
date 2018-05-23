@@ -1,11 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExcelTaxReport.Models
 {
+    /// <summary>
+    /// payment Installment
+    /// </summary>
+    /// <remarks>
+    /// A payment installment to tax authority payment.
+    /// Checkboxes are byte values: 0 equals false; 1 equals true
+    /// </remarks>
     public class PaymentInstallment
     {
         public decimal base_amount { get; set; }

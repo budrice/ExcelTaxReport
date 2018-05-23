@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using ExcelTaxReport.Models;
 
 namespace ExcelTaxReport
 {
+    /// <summary>
+    /// Test Data w/ 1 parcel, 1 tax authority, 4 payment installments.
+    /// </summary>
     class TestData
     {
         public static ClientOrder GetSampleOrder()

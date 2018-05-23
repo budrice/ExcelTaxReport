@@ -1,5 +1,8 @@
 ﻿namespace ExcelTaxReport.Models
 {
+    /// <summary>
+    /// client specific values
+    /// </summary>
     public class ClientConfig
     {
         public int id { get; set; }

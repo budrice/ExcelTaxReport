@@ -1,16 +1,13 @@
-﻿using ExcelTaxReport;
-using ExcelTaxReport.Models;
+﻿using ExcelTaxReport.Models;
 using Excel = Microsoft.Office.Interop.Excel;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExcelTaxReport.Reports
 {
+    /// <summary>
+    /// Report1: The is a mock report made for my resume.
+    /// </summary>
     public class Report1: WriteExcel, IReport
     {
         public Report1(ClientOrder client_order)
@@ -43,12 +40,18 @@ namespace ExcelTaxReport.Reports
             return false;
         }
 
+        /// <summary>
+        /// Filepath
+        /// </summary>
         private void Filepath()
         {
             ClientConfig config = client_order.client_config;
             filepath = config.base_path + config.report_name;
         }
 
+        /// <summary>
+        /// NewExcel
+        /// </summary>
         private void NewExcel()
         {
             xlApp = new Excel.Application();
@@ -57,6 +60,9 @@ namespace ExcelTaxReport.Reports
             sheet1.Name = "Tax Research";
         }
 
+        /// <summary>
+        /// SetMargins
+        /// </summary>
         private void SetMargins()
         {
             xlApp.Windows.Application.ActiveWindow.DisplayGridlines = gridlines;
@@ -70,6 +76,9 @@ namespace ExcelTaxReport.Reports
             sheet1.PageSetup.FitToPagesTall = 1;
         }
 
+        /// <summary>
+        /// ColumnWidths
+        /// </summary>
         private void ColumnWidths()
         {
             sheet1.Columns["A:A"].ColumnWidth = 11.57;
@@ -84,7 +93,11 @@ namespace ExcelTaxReport.Reports
             sheet1.Columns["J:J"].ColumnWidth = 6;
             sheet1.Columns["K:K"].ColumnWidth = 8.43;
         }
-        
+
+        /// <summary>
+        /// Header
+        /// </summary>
+        /// <param name="parcel"></param>
         private void Header(ParcelInformation parcel)
         {
             currentrow++;
@@ -172,6 +185,10 @@ namespace ExcelTaxReport.Reports
             CellValue("E" + currentrow, DataFunctions.ExemptionString(parcel.payment_records, parcel.state), 8);
         }
 
+        /// <summary>
+        /// Content
+        /// </summary>
+        /// <param name="parcel"></param>
         private void Content(ParcelInformation parcel)
         {
             foreach(TaxAuthorityPaymentRecord record in parcel.payment_records)
@@ -186,6 +203,11 @@ namespace ExcelTaxReport.Reports
             }
         }
 
+        /// <summary>
+        /// Valuation
+        /// </summary>
+        /// <param name="record"></param>
+        /// <param name="parcel"></param>
         private void Valuation(TaxAuthorityPaymentRecord record, ParcelInformation parcel)
         {
             string first_six = parcel.client_po_number.Substring(0, 6);
@@ -237,6 +259,10 @@ namespace ExcelTaxReport.Reports
             }
         }
 
+        /// <summary>
+        /// Delinquent
+        /// </summary>
+        /// <param name="record"></param>
         private void Delinquent(TaxAuthorityPaymentRecord record)
         {
             currentrow++;
@@ -302,6 +328,10 @@ namespace ExcelTaxReport.Reports
             }
         }
 
+        /// <summary>
+        /// PaymentInstallments
+        /// </summary>
+        /// <param name="record"></param>
         private void PaymentInstallments(TaxAuthorityPaymentRecord record)
         {
             currentrow++;
@@ -375,10 +405,11 @@ namespace ExcelTaxReport.Reports
                 CellValue("J" + currentrow, "Billed\nPaid:", 8, valign: Excel.XlVAlign.xlVAlignTop, font: "Calibri");
                 i++;
             }
-
-            
         }
 
+        /// <summary>
+        /// SaveExcel
+        /// </summary>
         private void SaveExcel()
         {
             xlApp.DisplayAlerts = false;
@@ -386,6 +417,9 @@ namespace ExcelTaxReport.Reports
             xlApp.DisplayAlerts = true;
         }
 
+        /// <summary>
+        /// CloseExcel
+        /// </summary>
         private void CloseExcel()
         {
             GC.Collect();

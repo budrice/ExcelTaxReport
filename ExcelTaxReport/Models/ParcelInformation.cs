@@ -3,6 +3,12 @@ using System.Collections.Generic;
 
 namespace ExcelTaxReport.Models
 {
+    /// <summary>
+    /// parcel information
+    /// </summary>
+    /// <remarks>
+    /// The parcel information contains the List of tax authority payments. Each parcel will be a separate document.
+    /// </remarks>
     public class ParcelInformation
     {
         public int id { get; set; }

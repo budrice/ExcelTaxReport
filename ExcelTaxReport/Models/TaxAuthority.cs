@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ExcelTaxReport.Models
+﻿namespace ExcelTaxReport.Models
 {
+    /// <summary>
+    /// tax authority
+    /// </summary>
     public class TaxAuthority
     {
         public string name { get; set; }

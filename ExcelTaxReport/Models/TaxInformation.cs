@@ -2,6 +2,9 @@
 
 namespace ExcelTaxReport.Models
 {
+    /// <summary>
+    /// tax information
+    /// </summary>
     public class TaxInformation
     {
         public string jurisdiction_name { get; set; }
